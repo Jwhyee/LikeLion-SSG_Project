@@ -20,7 +20,7 @@ public class App{
                     break outer;
                 case "등록":
                     System.out.print("명언 : ");
-                    String title = br.readLine();
+                    String contetn = br.readLine();
                     System.out.print("작가 : ");
                     String author = br.readLine();
                     int id = ++wiseSayingLastId;
