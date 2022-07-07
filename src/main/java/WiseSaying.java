@@ -1,5 +1,16 @@
 public class WiseSaying {
-    int id;
-    String quotes;
-    String writer;
+    private int id;
+    private String content;
+    private String author;
+
+    public WiseSaying(int id, String content, String author) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return id + " / " + author + " / " + content;
+    }
 }
