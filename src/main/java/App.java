@@ -1,17 +1,15 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class App{
     public void run() throws IOException {
-        List<Quotes> quotesList = new ArrayList<>();
         System.out.println("== 명언 SSG ==");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int cnt = 1;
+        int wiseSayingLastId = 0;
 
         outer: while (true) {
             System.out.print("명령 ) ");
@@ -21,52 +19,20 @@ public class App{
                 case "종료":
                     break outer;
                 case "등록":
-                    System.out.print("명언 ) ");
-                    String quotes = br.readLine();
-                    System.out.print("작가 ) ");
-                    String writer = br.readLine();
-                    Quotes newQuotes = new Quotes(cnt, quotes, writer);
-                    quotesList.add(newQuotes);
+                    System.out.print("명언 : ");
+                    String title = br.readLine();
+                    System.out.print("작가 : ");
+                    String author = br.readLine();
+                    int id = ++wiseSayingLastId;
+                    System.out.println(id + "번 명언이 등록되었습니다.");
+                    break;
+                case "목록":
+                    System.out.println("번호 / 작가 / 명언");
+                    break;
+                case "삭제":
                     break;
             }
-            System.out.println(quotesList.get(cnt - 1).id + "번 명언이 등록되었습니다.");
-            cnt++;
         }
         br.close();
-    }
-}
-class Quotes{
-    int id;
-    String quotes;
-    String writer;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getQuotes() {
-        return quotes;
-    }
-
-    public void setQuotes(String quotes) {
-        this.quotes = quotes;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public Quotes(int id, String quotes, String writer) {
-        this.id = id;
-        this.quotes = quotes;
-        this.writer = writer;
     }
 }
