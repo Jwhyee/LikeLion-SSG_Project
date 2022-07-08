@@ -1,8 +1,5 @@
 import java.io.*;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 public class App{
     public void run() throws IOException {
         System.out.println("== 명언 SSG ==");
