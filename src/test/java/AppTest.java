@@ -9,6 +9,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test
+    @DisplayName("getPath")
+    public void rqGetPath() {
+        Rq rq = new Rq("삭제?id=1");
+        String path = rq.getPath();
+
+        assertEquals("삭제", path);
+    }
+
+    @Test
+    @DisplayName("rq")
+    public void Rq() {
+        Rq rq = new Rq("검색?id=1&no=1");
+        int id = rq.getIntParam("id", 0);
+        int no = rq.getIntParam("no", 0);
+        assertEquals(1, id);
+        assertEquals(1, no);
+    }
+    @Test
     @DisplayName("스캐너")
     public void 문자열을_스캐너의_입력으로_설정() {
         String input = """
