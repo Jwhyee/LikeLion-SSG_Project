@@ -32,6 +32,9 @@ public class App{
                 case "등록":
                     write(rq);
                     break;
+                case "수정":
+                    update(rq);
+                    break;
                 case "목록":
                     list(rq);
                     break;
@@ -41,6 +44,10 @@ public class App{
             }
         }
         br.close();
+    }
+
+    private void update(Rq rq) {
+
     }
 
     private void list(Rq rq) {
@@ -74,17 +81,11 @@ public class App{
         }
 
         // URL에 입력된 id에 해당하는 명언객체 찾기
-        WiseSaying fountWiseSaying = null;
-
-        for (WiseSaying wiseSaying___ : wiseSayings) {
-            if (wiseSaying___.id == paramId) {
-                fountWiseSaying = wiseSaying___;
-            }
-        }
+        WiseSaying fountWiseSaying = findById(paramId);
 
         // 찾지 못했다면 중지
         if (fountWiseSaying == null) {
-            System.out.printf("%d번 명언은 존재하지 않습니다..\n", paramId);
+            System.out.printf("%d번 명언은 존재하지 않습니다!\n", paramId);
             return;
         }
 
@@ -92,5 +93,14 @@ public class App{
         wiseSayings.remove(fountWiseSaying);
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
+    }
+
+    private WiseSaying findById(int paramId) {
+        for (WiseSaying wiseSaying : wiseSayings) {
+            if (wiseSaying.id == paramId) {
+                return wiseSaying;
+            }
+        }
+        return null;
     }
 }
