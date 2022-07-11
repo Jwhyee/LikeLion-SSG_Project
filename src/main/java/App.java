@@ -38,6 +38,31 @@ public class App{
                         System.out.println(wiseSaying1.id + " / " + wiseSaying1.author + " / " + wiseSaying1.content);
                     }
                     break;
+                case "수정":
+                    int paramId = rq.getIntParam("id", 0);
+
+                    if (paramId == 0) {
+                        System.out.println("id를 입력해주세요.");
+                        continue;
+                    }
+
+                    WiseSaying wiseSaying__ = null;
+
+                    for (WiseSaying wiseSaying___ : wiseSayings) {
+                        if (wiseSaying___.id == paramId) {
+                            wiseSaying__ = wiseSaying___;
+                        }
+                    }
+
+                    if (wiseSaying__ == null) {
+                        System.out.printf("%d번 명언은 존재하지 않습니다..\n", paramId);
+                        continue;
+                    }
+
+                    wiseSayings.remove(wiseSaying__);
+
+                    System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
+                    break;
                 case "삭제":
                     // URL에 입력된 id 얻기
                     int paramId = rq.getIntParam("id", 0);
