@@ -11,6 +11,10 @@ public class WiseSaying {
 
     @Override
     public String toString() {
-        return id + " / " + author + " / " + content;
+        return "WiseSaying{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }
