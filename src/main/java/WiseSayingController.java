@@ -30,10 +30,10 @@ public class WiseSayingController {
         }
 
         System.out.printf("명언(기존) : %s\n", foundWiseSaying.content);
-        System.out.print("명언 : ");
+        System.out.printf("명언 : ");
         String content = sc.nextLine();
         System.out.printf("작가(기존) : %s\n", foundWiseSaying.author);
-        System.out.print("작가 : ");
+        System.out.printf("작가 : ");
         String author = sc.nextLine();
 
         wiseSayingRepository.modify(paramId, content, author);

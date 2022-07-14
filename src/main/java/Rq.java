@@ -2,9 +2,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Rq {
-    public String url;
-    public String path;
-    public Map<String, String> queryParams;
+    String url;
+    String path;
+    Map<String, String> queryParams;
 
     public Rq(String url) {
         this.url = url;
@@ -15,6 +15,7 @@ public class Rq {
 
         if (urlBits.length == 2) {
             String queryStr = urlBits[1];
+
             String[] paramBits = queryStr.split("&");
 
             for (String paramBit : paramBits) {
@@ -23,6 +24,7 @@ public class Rq {
                 if (paramNameAndValue.length == 1) {
                     continue;
                 }
+
                 String paramName = paramNameAndValue[0].trim();
                 String paramValue = paramNameAndValue[1].trim();
 
@@ -32,14 +34,17 @@ public class Rq {
     }
 
     public int getIntParam(String paramName, int defaultValue) {
-        if (!queryParams.containsKey(paramName)) {
+        if (queryParams.containsKey(paramName) == false) {
             return defaultValue;
         }
+
         String paramValue = queryParams.get(paramName);
+
         if (paramValue.length() == 0) {
             return defaultValue;
         }
-        return Integer.parseInt(queryParams.get(paramName));
+
+        return Integer.parseInt(paramValue);
     }
 
     public String getPath() {
