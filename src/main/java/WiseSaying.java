@@ -8,4 +8,16 @@ public class WiseSaying {
         this.author = author;
         this.content = content;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }
