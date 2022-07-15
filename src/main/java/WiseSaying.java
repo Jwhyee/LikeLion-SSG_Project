@@ -20,4 +20,13 @@ public class WiseSaying {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public String toString() {
+        return "WiseSaying{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

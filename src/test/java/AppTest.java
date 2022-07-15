@@ -22,16 +22,22 @@ class AppTest {
     void 등록시_생성된_명언번호_노출() {
         Map<Integer, WiseSaying> map = new HashMap<>();
         int id = 1;
-        String cmd = "등록";
         String content = "현재를 사랑하라";
         String author = "작자미상";
         WiseSaying saying = new WiseSaying(id, author, content);
 
-        assertEquals(id, 1);
+        assertEquals(saying.getId(), 1);
     }
 
     @Test
-    void 명언삭제를_위한_path_구분() {
+    void 명언삭제를_위한_path_구분1() {
+        String cmd = "삭제?id=1";
+        String cmd2 = cmd.split("\\?")[0];
+        assertEquals(cmd2, "삭제");
+    }
+
+    @Test
+    void 명언삭제를_위한_path_구분2() {
         String cmd = "삭제?id=1";
         Rq rq = new Rq(cmd);
         assertEquals(rq.getPath(), "삭제");

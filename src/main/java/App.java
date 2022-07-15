@@ -1,19 +1,17 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
-    Map<Integer, WiseSaying> wsRepo;
+    List<WiseSaying> wsRepo;
     private Scanner sc;
     WiseSaying wiseSaying;
+    Rq rq;
 
     public App() {
         sc = new Scanner(System.in);
     }
 
     public void run() {
-        wsRepo = new HashMap<>();
+        wsRepo = new ArrayList<>();
         System.out.println("== 명언 SSG ==");
         int id = 1;
 
@@ -21,6 +19,7 @@ public class App {
         while (true) {
             System.out.print("명령) ");
             String cmd = sc.nextLine();
+            rq = new Rq(cmd);
             switch (cmd) {
                 case "등록":
                     System.out.print("명언 : ");
@@ -28,13 +27,13 @@ public class App {
                     System.out.print("작가 : ");
                     String author = sc.nextLine();
                     wiseSaying = new WiseSaying(id, author, content);
-                    wsRepo.put(id, wiseSaying);
+                    wsRepo.add(wiseSaying);
                     System.out.println(id + "번 명언이 등록되었습니다.");
                     id++;
                     break;
                 case "목록":
-                    for (Integer wsId : wsRepo.keySet()) {
-                        System.out.println(wsId + " / " + wsRepo.get(wsId).getAuthor() + " / " + wsRepo.get(wsId).getContent());
+                    for (WiseSaying saying : wsRepo) {
+                        System.out.println(saying.getId() + " / " + saying.getAuthor() + " / " + saying.getContent());
                     }
                     id++;
                     break;
