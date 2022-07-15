@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +43,35 @@ class AppTest {
         String cmd = "삭제?id=1";
         Rq rq = new Rq(cmd);
         assertEquals(rq.getPath(), "삭제");
+    }
+
+    @Test
+    void 존재하지_않는_명언_삭제에_대한_예외처리1() {
+        WiseSaying wiseSaying1 = new WiseSaying(1, "작미1", "내용1");
+        WiseSaying wiseSaying2 = new WiseSaying(2, "작미2", "내용2");
+        WiseSaying wiseSaying3 = new WiseSaying(3, "작미3", "내용3");
+        String cmd = "삭제?id=2";
+        Rq rq = new Rq(cmd);
+        int paramId = rq.getIntParam("id", 0);
+        assertEquals(paramId, 2);
+    }
+
+    @Test
+    void 존재하지_않는_명언_삭제에_대한_예외처리2() {
+        List<WiseSaying> repo = new ArrayList<>();
+        WiseSaying wiseSaying1 = new WiseSaying(1, "작미1", "내용1");
+        repo.add(wiseSaying1);
+        WiseSaying wiseSaying2 = new WiseSaying(2, "작미2", "내용2");
+        repo.add(wiseSaying2);
+        WiseSaying wiseSaying3 = new WiseSaying(3, "작미3", "내용3");
+        repo.add(wiseSaying3);
+        String cmd = "삭제?id=2";
+        Rq rq = new Rq(cmd);
+        int paramId = rq.getIntParam("id", 0);
+        if (paramId != 0) {
+            repo.remove(wiseSaying2);
+        }
+        assertEquals(repo.get(1).getContent(), "내용3");
     }
 
 }
