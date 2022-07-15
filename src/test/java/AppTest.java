@@ -28,7 +28,7 @@ class AppTest {
         String author = "작자미상";
         WiseSaying saying = new WiseSaying(id, author, content);
 
-        assertEquals(saying.getId(), 1);
+        assertEquals(saying.id, 1);
     }
 
     @Test
@@ -71,7 +71,7 @@ class AppTest {
         if (paramId != 0) {
             repo.remove(wiseSaying2);
         }
-        assertEquals(repo.get(1).getContent(), "내용3");
+        assertEquals(repo.get(1).content, "내용3");
     }
 
 }
