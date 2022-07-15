@@ -11,6 +11,7 @@ public class App {
     public void run() {
         System.out.println("== 명언 SSG ==");
         int id = 1;
+
         outer:
         while (true) {
             System.out.print("명령) ");
