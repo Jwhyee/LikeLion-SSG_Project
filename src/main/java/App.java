@@ -58,6 +58,25 @@ public class App {
                     wsRepo.remove(findWiseSaying);
                     System.out.println(paramId + "번 명언이 삭제되었습니다.");
                     break;
+                case "수정":
+                    int findParamId = rq.getIntParam("id", 0);
+                    if (findParamId == 0) {
+                        System.out.println("id를 입력해주세요.");
+                        continue;
+                    }
+                    WiseSaying findWise = null;
+                    for (WiseSaying saying : wsRepo) {
+                        if (saying.getId() == findParamId) {
+                            findWise = saying;
+                        }
+                    }
+                    if (findWise == null) {
+                        System.out.println(findParamId + "번 명언은 존재하지 않습니다.");
+                        continue;
+                    }
+                    wsRepo.remove(findWise);
+                    System.out.println(findParamId + "번 명언이 삭제되었습니다.");
+                    break;
                 case "종료":
                     break outer;
             }
