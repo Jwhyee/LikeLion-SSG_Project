@@ -1,107 +1,50 @@
 import org.junit.jupiter.api.Test;
-import util.Util;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test
-    void 등록() {
-        String cmd = "등록";
-        String ws = "현재를 사랑하라";
-        String aut = "작자미상";
-
-        assertEquals(cmd, "등록");
-        assertEquals(ws, "현재를 사랑하라");
-        assertEquals(aut, "작자미상");
-
+    public void 테스트_실험() {
+        int rs = 10 + 20;
+        assertEquals(30, rs);
     }
 
     @Test
-    void 등록시_생성된_명언번호_노출() {
-        Map<Integer, WiseSaying> map = new HashMap<>();
-        int id = 1;
-        String content = "현재를 사랑하라";
-        String author = "작자미상";
-        WiseSaying saying = new WiseSaying(id, author, content);
+    public void 문자열을_스캐너의_입력으로_설정() {
+        String input = """
+                등록
+                명언1
+                작가1
+                """.stripIndent();
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        Scanner sc = new Scanner(in);
 
-        assertEquals(saying.id, 1);
+        String cmd = sc.nextLine().trim();
+        String content = sc.nextLine().trim();
+        String author = sc.nextLine().trim();
+
+        assertEquals("등록", cmd);
+        assertEquals("명언1", content);
+        assertEquals("작가1", author);
     }
 
     @Test
-    void 명언삭제를_위한_path_구분1() {
-        String cmd = "삭제?id=1";
-        String cmd2 = cmd.split("\\?")[0];
-        assertEquals(cmd2, "삭제");
-    }
+    public void 표준출력을_리다이렉션하여_결과를_문자열로_받기() throws IOException {
+        // 표준출력을 리다이렉션
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
 
-    @Test
-    void 명언삭제를_위한_path_구분2() {
-        String cmd = "삭제?id=1";
-        Rq rq = new Rq(cmd);
-        assertEquals(rq.getPath(), "삭제");
-    }
+        System.out.println("안녕");
 
-    @Test
-    void 존재하지_않는_명언_삭제에_대한_예외처리1() {
-        WiseSaying wiseSaying1 = new WiseSaying(1, "작미1", "내용1");
-        WiseSaying wiseSaying2 = new WiseSaying(2, "작미2", "내용2");
-        WiseSaying wiseSaying3 = new WiseSaying(3, "작미3", "내용3");
-        String cmd = "삭제?id=2";
-        Rq rq = new Rq(cmd);
-        int paramId = rq.getIntParam("id", 0);
-        assertEquals(paramId, 2);
-    }
+        // 그 동안 System.out.println 으로 모아놨던 문장들을 받아옴
+        String rs = output.toString().trim();
 
-    @Test
-    void 존재하지_않는_명언_삭제에_대한_예외처리2() {
-        List<WiseSaying> repo = new ArrayList<>();
-        WiseSaying wiseSaying1 = new WiseSaying(1, "작미1", "내용1");
-        repo.add(wiseSaying1);
-        WiseSaying wiseSaying2 = new WiseSaying(2, "작미2", "내용2");
-        repo.add(wiseSaying2);
-        WiseSaying wiseSaying3 = new WiseSaying(3, "작미3", "내용3");
-        repo.add(wiseSaying3);
-        String cmd = "삭제?id=2";
-        Rq rq = new Rq(cmd);
-        int paramId = rq.getIntParam("id", 0);
-        if (paramId != 0) {
-            repo.remove(wiseSaying2);
-        }
-        assertEquals(repo.get(1).content, "내용3");
-    }
+        // 표준출력을 원상복구
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+        output.close();
 
-    @Test
-    void 파일에_내용쓰기() {
-        Util.mkdir("test_data");
-        Util.saveToFile("test_data/1.json", "내용\n");
-    }
-    @Test
-    void 파일에_객체를_저장() {
-        Util.mkdir("test_data");
-        WiseSaying wiseSaying = new WiseSaying(1, "내 사전에 불가능은 없다.", "나폴레옹");
-        Util.saveToFile("test_data/1.json", wiseSaying.toJson());
-
-        String rs = Util.readFromFile("test_data/1.json");
-
-        assertEquals(wiseSaying.toJson(), rs);
-    }
-
-    @Test
-    void 파일에_있는_JSON을_맵으로_변환() {
-        Util.mkdir("test_data");
-        WiseSaying wiseSaying = new WiseSaying(1, "내 사전에 불가능은 없다.", "나폴레옹");
-        Util.saveToFile("test_data/1.json", wiseSaying.toJson());
-
-        String rs = Util.readFromFile("test_data/1.json");
-        Map<String, Object> map = Util.jsonToMap(rs);
-
-        assertEquals(1, map.get("id"));
-        assertEquals("내 사전에 불가능은 없다.", map.get("content"));
-        assertEquals("나폴레옹", map.get("author"));
+        assertEquals("안녕", rs);
     }
 }
