@@ -30,4 +30,11 @@ class AppTest {
         assertEquals(id, 1);
     }
 
+    @Test
+    void 명언삭제를_위한_path_구분() {
+        String cmd = "삭제?id=1";
+        Rq rq = new Rq(cmd);
+        assertEquals(rq.getPath(), "삭제");
+    }
+
 }
