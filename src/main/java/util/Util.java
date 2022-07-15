@@ -1,14 +1,5 @@
 package util;
 
-import java.io.*;
-import java.util.Scanner;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -36,8 +27,14 @@ public class Util {
 
     public static String readFromFile(String path) {
         try (RandomAccessFile reader = new RandomAccessFile(path, "r")) {
-            String line = reader.readLine();
-            return new String(line.getBytes("iso-8859-1"), "utf-8");
+            String body = "";
+
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                body += new String(line.getBytes("iso-8859-1"), "utf-8") + "\n";
+            }
+
+            return body.trim();
         } catch (IOException e) {
         }
 

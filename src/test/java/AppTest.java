@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,4 +75,9 @@ class AppTest {
         assertEquals(repo.get(1).content, "내용3");
     }
 
+    @Test
+    void 파일에_내용쓰기() {
+        Util.mkdir("test_data");
+        Util.saveToFile("test_data/1.json", "내용");
+    }
 }
