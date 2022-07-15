@@ -58,4 +58,13 @@ public class FileDBTest {
 
         assertEquals("내용\n내용", rs);
     }
+
+    @Test
+    void 파일에_숫자_저장() {
+        Util.saveNumberToFile("test_data/last_id.txt", 100);
+
+        int rs = Util.readNumberFromFile("test_data/last_id.txt", 0);
+
+        assertEquals(100, rs);
+    }
 }
